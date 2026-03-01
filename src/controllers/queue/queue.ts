@@ -7,7 +7,7 @@ export async function queue(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<void> {
-  console.log({ env, ctx });
+  console.log({ env, ctx, environments: process.env });
   for (const message of batch.messages) {
     console.log({
       id: message.id,
