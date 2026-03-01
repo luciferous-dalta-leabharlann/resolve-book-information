@@ -36,6 +36,12 @@
 
     /* Skip type checking all .d.ts files. */
 		"skipLibCheck": true,
+
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		},
+
 		"types": [
 			"./worker-configuration.d.ts",
 			"node"
