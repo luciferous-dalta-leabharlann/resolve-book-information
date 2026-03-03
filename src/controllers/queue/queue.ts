@@ -20,7 +20,7 @@ async function main(message: Message<Task>, env: Env) {
   await page.goto(env.tmp_url);
 
   const title = await page.title();
-  const data: object = await page.evaluate("() => document.title");
+  const data: object = await page.evaluate("(() => document.title)()");
 
   await browser.close();
 
