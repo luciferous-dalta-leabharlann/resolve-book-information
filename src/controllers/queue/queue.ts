@@ -1,6 +1,7 @@
 import { launch } from "@cloudflare/playwright";
 
 import type { Env, Task } from "@/models";
+import { sleep } from "@/utils";
 
 export async function queue(
   batch: MessageBatch<Task>,
@@ -15,12 +16,13 @@ export async function queue(
 
 async function main(message: Message<Task>, env: Env) {
   console.log("main start");
+  await sleep(100);
   const browser = await launch(env.MY_BROWSER);
   const page = await browser.newPage();
   await page.goto(env.tmp_url);
 
   const title = await page.title();
-  const data: object = await page.evaluate("document.title");
+  const data: object = await page.evaluate(env.evaluate_code);
 
   await browser.close();
 
