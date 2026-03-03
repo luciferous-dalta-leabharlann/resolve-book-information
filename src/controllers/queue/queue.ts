@@ -1,6 +1,6 @@
-export type Task = {
-  url: string;
-};
+import { launch } from "@cloudflare/playwright";
+
+import type { Env, Task } from "@/models";
 
 export async function queue(
   batch: MessageBatch<Task>,
@@ -9,9 +9,24 @@ export async function queue(
 ): Promise<void> {
   console.log({ env, ctx, environments: process.env });
   for (const message of batch.messages) {
-    console.log({
-      id: message.id,
-      body: message.body,
-    });
+    await main(message, env);
   }
+}
+
+async function main(message: Message<Task>, env: Env) {
+  console.log("main start");
+  const browser = await launch(env.MY_BROWSER);
+  const page = await browser.newPage();
+  await page.goto(env.tmp_url);
+
+  const title = await page.title();
+  const data = await page.evaluate(env.evaluate_code);
+
+  await browser.close();
+
+  const result = {
+    title,
+    data,
+  };
+  console.log(result);
 }

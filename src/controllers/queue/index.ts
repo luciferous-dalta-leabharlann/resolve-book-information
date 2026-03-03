@@ -1,1 +1,1 @@
-export { queue } from "./queue";
+export { queue, type Task } from "./queue";

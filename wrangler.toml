@@ -9,6 +9,9 @@ compatibility_flags = ["nodejs_compat"]
 [observability]
 enabled = true
 
+[browser]
+binding = "MY_BROWSER"
+
 [[queues.consumers]]
 queue = "test-queue"
 max_batch_size = 1

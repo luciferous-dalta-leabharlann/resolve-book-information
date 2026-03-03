@@ -18,5 +18,8 @@
   },
   "volta": {
     "node": "24.14.0"
+  },
+  "dependencies": {
+    "@cloudflare/playwright": "^1.1.1"
   }
 }
