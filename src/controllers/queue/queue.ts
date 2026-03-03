@@ -20,13 +20,13 @@ async function main(message: Message<Task>, env: Env) {
   await page.goto(env.tmp_url);
 
   const title = await page.title();
-  const data = await page.evaluate(env.evaluate_code);
+  const data: object = await page.evaluate(env.evaluate_code);
 
   await browser.close();
 
   const result = {
     title,
-    data,
+    data: data,
   };
   console.log(result);
 }
