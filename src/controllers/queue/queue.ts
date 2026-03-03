@@ -6,17 +6,21 @@ import { sleep } from "@/utils";
 export async function queue(
   batch: MessageBatch<Task>,
   env: Env,
-  ctx: ExecutionContext,
+  _ctx: ExecutionContext,
 ): Promise<void> {
-  console.log({ env, ctx, environments: process.env });
   for (const message of batch.messages) {
     await main(message, env);
   }
 }
 
 async function main(message: Message<Task>, env: Env) {
-  console.log("main start");
-  await sleep(100);
+  const { url } = message.body;
+  console.log({
+    msg: "main start",
+    url,
+    env,
+  });
+
   const browser = await launch(env.MY_BROWSER);
   const page = await browser.newPage();
   await page.goto(env.tmp_url);
